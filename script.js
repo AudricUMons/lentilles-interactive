@@ -12,8 +12,7 @@ const canvas = document.getElementById('rayCanvas');
     let tickIntervalCm = parseInt(tickIntervalSlider.value);
 
     const BASE_S = 5;            
-    const CX = canvas.width/2;
-    const CY = canvas.height/2;
+    
 
     let panX=0, panY=0, zoom=1;
     let sign, f_phys, do_phys, ho_phys, di_phys, hi_phys;
@@ -41,10 +40,12 @@ const canvas = document.getElementById('rayCanvas');
     }
 
     function draw() {
+  const CX = canvas.width / 2;
+  const CY = canvas.height / 2;
       const w=canvas.width, h=canvas.height;
       const S=BASE_S*zoom;
-      const baseFontSize = 15; // taille de départ
-      const minFontSize = 12;
+      const baseFontSize = 10; // taille de départ
+      const minFontSize = 9;
       const maxFontSize = baseFontSize;
       const currentFontSize = Math.max(minFontSize, Math.min(maxFontSize, baseFontSize / zoom));
       ctx.setTransform(1,0,0,1,0,0);
@@ -168,6 +169,29 @@ const canvas = document.getElementById('rayCanvas');
       draw();
     });
     ['mouseup','mouseleave'].forEach(ev=>canvas.addEventListener(ev,()=>dragging=null));
+    canvas.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) {
+        dragging = 'pan';
+        sx = e.touches[0].clientX;
+        sy = e.touches[0].clientY;
+      }
+    });
+    
+    canvas.addEventListener('touchmove', e => {
+      if (dragging !== 'pan') return;
+      const touch = e.touches[0];
+      panX += touch.clientX - sx;
+      panY += touch.clientY - sy;
+      sx = touch.clientX;
+      sy = touch.clientY;
+      draw();
+      e.preventDefault(); // évite le scroll de la page
+    }, { passive: false });
+    
+    canvas.addEventListener('touchend', () => {
+      dragging = null;
+    });
+    
 
     [lensType,focalInp,doInp,hoInp].forEach(el=>el.addEventListener('input',()=>{ calculate(); draw(); }));
     zoomInBtn.addEventListener('click', () => {
@@ -184,6 +208,21 @@ const canvas = document.getElementById('rayCanvas');
       }
     });
 
+    function resizeCanvasIfMobile() {
+      const isMobile = window.innerWidth < 768;
+      const width = isMobile ? window.innerWidth - 30 : 1600;
+      const height = isMobile ? Math.floor(width / 2) : 800;
+
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+        draw();
+      }
+    }
+
+    window.addEventListener('resize', resizeCanvasIfMobile);
+
     // init
     calculate();
     draw();
+    resizeCanvasIfMobile();

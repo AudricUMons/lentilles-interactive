@@ -46,13 +46,25 @@ body {
   }
   
   #canvasContainer {
-    flex:1;
+    flex: 1;
+    position: relative;
   }
+  
   
   #controls {
     position: absolute;
     top: 10px;
     right: 10px;
+  }
+
+  #controls button {
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 22px;
+    cursor: pointer;
   }
   
   canvas {
@@ -70,3 +82,57 @@ body {
   #formSection {
     flex: 0 0 500px;
   }
+
+  @media (max-width: 768px) {
+    body {
+      margin: 10px;
+    }
+  
+    #canvasContainer {
+      margin-top: 20px;
+      width: 100%;
+    }
+  
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 2 / 1; /* Forcer un ratio largeur:hauteur */
+      max-height: 400px;   /* éviter qu’il déborde trop */
+    }
+    
+  
+    #formSection {
+      width: 100%;
+    }
+  
+    body > div {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    #fullscreenBtn {
+      bottom: 5px;
+      right: 5px;
+      font-size: 16px;
+    }
+  }
+
+  #controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #controls button {
+    font-size: 16px;
+    padding: 5px 8px;
+  }
+  
+  #controls button:hover {
+    background: rgba(0,0,0,0.8);
+  }
+  
+  
