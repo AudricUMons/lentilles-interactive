@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculateur de Lentille Interactive</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon_optical.ico">
+</head>
+<body>
+  <h1>Calculateur de Lentille Interactive</h1>
+
+  <label for="lensType">Type de lentille :</label>
+  <select id="lensType">
+    <option value="convergente">Convergente (f > 0)</option>
+    <option value="divergente">Divergente (f < 0)</option>
+  </select>
+
+  <label for="focal">Focale f (cm) :</label>
+  <input id="focal" type="number" value="30">
+
+  <label for="do">Distance objet d₀ (cm) :</label>
+  <input id="do" type="number" value="10">
+
+  <label for="ho">Hauteur objet h₀ (cm) :</label>
+  <input id="ho" type="number" value="5">
+
+  <div id="results"></div>
+
+  <div id="canvasContainer">
+    <canvas id="rayCanvas" width="800" height="400"></canvas>
+    <div id="controls">
+      <button id="zoomIn">+</button>
+      <button id="zoomOut">-</button>
+    </div>
+  </div>
+
+  <label for="tickInterval">Intervalle entre les ticks (cm) :</label>
+  <input id="tickInterval" type="range" min="1" max="10" value="1">
+  <span id="tickIntervalValue">1</span>
+
+  <script src="script.js"></script>
+</body>
+</html>
