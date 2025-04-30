@@ -46,9 +46,7 @@ body {
   }
   
   #canvasContainer {
-    position: relative;
-    display: inline-block;
-    margin-top: 20px;
+    flex:1;
   }
   
   #controls {
@@ -60,9 +58,15 @@ body {
   canvas {
     border: 1px solid #bdc3c7;
     cursor: grab;
+    max-width: 100%;
+    width: 8000px;
+    height: auto;
   }
   
   canvas:active {
     cursor: grabbing;
   }
   
+  #formSection {
+    flex: 0 0 500px;
+  }

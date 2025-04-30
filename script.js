@@ -43,8 +43,8 @@ const canvas = document.getElementById('rayCanvas');
     function draw() {
       const w=canvas.width, h=canvas.height;
       const S=BASE_S*zoom;
-      const baseFontSize = 10; // taille de départ
-      const minFontSize = 9;
+      const baseFontSize = 15; // taille de départ
+      const minFontSize = 12;
       const maxFontSize = baseFontSize;
       const currentFontSize = Math.max(minFontSize, Math.min(maxFontSize, baseFontSize / zoom));
       ctx.setTransform(1,0,0,1,0,0);
