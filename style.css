@@ -1,169 +1,212 @@
+/* --- BASE --- */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 20px;
-    background: #f9f9f9;
-    color: #333;
+  font-family: 'Inter', sans-serif;
+  margin: 20px;
+  background: #f4f6f9;
+  color: #2d3436;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-layout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+label {
+  display: block;
+  margin-top: 14px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* --- FORM INPUTS --- */
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  font-size: 1rem;
+  border: 1px solid #dcdde1;
+  border-radius: 6px;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233498db' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+  padding-right: 36px;
+}
+
+input:focus, select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* --- BUTTONS --- */
+button {
+  padding: 10px 14px;
+  margin: 6px 6px 0 0;
+  font-size: 1rem;
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
+}
+
+button:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+}
+
+/* --- SPECIAL BUTTONS INSIDE CANVAS --- */
+#exportBtn,
+#fullscreenBtn,
+#controls,
+#legend {
+  position: absolute;
+  z-index: 2;
+}
+
+#exportBtn {
+  bottom: 10px;
+  right: 60px;
+  background: #2ecc71;
+}
+#exportBtn:hover {
+  background: #27ae60;
+}
+
+#fullscreenBtn {
+  bottom: 10px;
+  right: 10px;
+  background: #34495e;
+}
+#fullscreenBtn:hover {
+  background: #2c3e50;
+}
+
+#controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#controls button {
+  font-size: 18px;
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 6px;
+}
+#controls button:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+/* --- RESULTS PANEL --- */
+#results {
+  margin-top: 24px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* --- LAYOUT --- */
+#formSection {
+  flex: 0 0 360px;
+}
+
+#canvasContainer {
+  flex: 1;
+  position: relative;
+}
+
+canvas {
+  border-radius: 6px;
+  border: 1px solid #dfe6e9;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  cursor: grab;
+  max-width: 100%;
+  width: 8000px;
+  height: auto;
+  transition: box-shadow 0.3s ease;
+}
+
+canvas:hover {
+  box-shadow: 0 0 16px rgba(52, 152, 219, 0.3);
+}
+
+canvas:active {
+  cursor: grabbing;
+}
+
+#legend {
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  body {
+    margin: 10px;
   }
-  
-  h1 {
-    color: #2c3e50;
-  }
-  
-  label {
-    display: block;
-    margin-top: 12px;
-    font-weight: 600;
-  }
-  
-  input, select {
-    width: 220px;
-    padding: 8px;
-    margin-top: 5px;
-    font-size: 1rem;
-    box-sizing: border-box;
-  }
-  
-  button {
-    padding: 8px;
-    margin: 5px 5px 0 0;
-    font-size: 1rem;
-    background: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background: #2980b9;
-  }
-  
-  #results {
-    margin-top: 20px;
-    background: #ecf0f1;
-    padding: 15px;
-    border-radius: 4px;
-  }
-  
+
   #canvasContainer {
-    flex: 1;
-    position: relative;
-  }
-  
-  
-  #controls {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    margin-top: 20px;
+    width: 100%;
   }
 
-  #controls button {
-    background: rgba(0,0,0,0.6);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 10px;
-    font-size: 22px;
-    cursor: pointer;
-  }
-  
   canvas {
-    border: 1px solid #bdc3c7;
-    cursor: grab;
-    max-width: 100%;
-    width: 8000px;
-    height: auto;
-  }
-  
-  canvas:active {
-    cursor: grabbing;
-  }
-  
-  #formSection {
-    flex: 0 0 500px;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 2 / 1;
+    max-height: 400px;
   }
 
+  #formSection {
+    width: 100%;
+  }
+
+  body > div {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #fullscreenBtn {
+    bottom: 5px;
+    right: 5px;
+    font-size: 16px;
+  }
   #legend {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 6px 10px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-family: sans-serif;
-    color: #333;
-    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    font-size: 12px;
+    padding: 6px 8px;
   }
 
   #exportBtn {
-    position: absolute;
-    bottom: 10px;
-    right: 60px;
-    background: #2ecc71;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 10px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  #exportBtn:hover {
-    background: #27ae60;
-  }
-  
-  
-
-  @media (max-width: 768px) {
-    body {
-      margin: 10px;
-    }
-  
-    #canvasContainer {
-      margin-top: 20px;
-      width: 100%;
-    }
-  
-    canvas {
-      width: 100% !important;
-      height: auto !important;
-      aspect-ratio: 2 / 1; /* Forcer un ratio largeur:hauteur */
-      max-height: 400px;   /* éviter qu’il déborde trop */
-    }
-    
-  
-    #formSection {
-      width: 100%;
-    }
-  
-    body > div {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  
-    #fullscreenBtn {
-      bottom: 5px;
-      right: 5px;
-      font-size: 16px;
-    }
-  }
-
-  #controls {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  #controls button {
-    font-size: 16px;
+    font-size: 12px;
     padding: 5px 8px;
+    bottom: 5px;
+    right: 50px;
   }
-  
-  #controls button:hover {
-    background: rgba(0,0,0,0.8);
-  }
-  
-  
+}
