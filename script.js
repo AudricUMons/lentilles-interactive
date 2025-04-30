@@ -40,8 +40,8 @@ const canvas = document.getElementById('rayCanvas');
     }
 
     function draw() {
-  const CX = canvas.width / 2;
-  const CY = canvas.height / 2;
+      const CX = canvas.width / 2;
+      const CY = canvas.height / 2;
       const w=canvas.width, h=canvas.height;
       const S=BASE_S*zoom;
       const baseFontSize = 10; // taille de départ
@@ -50,6 +50,9 @@ const canvas = document.getElementById('rayCanvas');
       const currentFontSize = Math.max(minFontSize, Math.min(maxFontSize, baseFontSize / zoom));
       ctx.setTransform(1,0,0,1,0,0);
       ctx.clearRect(0,0,w,h);
+      ctx.fillStyle = "#ffffff"; // ou autre couleur de fond
+      ctx.fillRect(0, 0, w, h);
+
 
       // axes ticks every 2cm with labels
       const tickPx = tickIntervalCm * S;
@@ -115,13 +118,6 @@ const canvas = document.getElementById('rayCanvas');
       // object & image
       ctx.fillStyle='blue'; ctx.beginPath(); ctx.arc(ox,oy,2*zoom,0,2*Math.PI); ctx.fill();
       ctx.fillStyle='red';  ctx.beginPath(); ctx.arc(ix,iy,2*zoom,0,2*Math.PI); ctx.fill();
-
-      // labels
-      ctx.scale(1,-1);
-      ctx.fillStyle='black'; ctx.font =`${12}px sans-serif`;
-      ctx.fillText('Objet', ox+6*zoom, -oy-6*zoom);
-      ctx.fillText('Image', ix+6*zoom, -iy-6*zoom);
-      ctx.scale(1,-1);
 
       // R1
       ctx.strokeStyle='orange'; ctx.lineWidth=2;
@@ -221,6 +217,18 @@ const canvas = document.getElementById('rayCanvas');
     }
 
     window.addEventListener('resize', resizeCanvasIfMobile);
+
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      html2canvas(document.getElementById('canvasContainer')).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'graphique_complet.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    });
+    
+    
 
     // init
     calculate();
